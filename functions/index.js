@@ -10,7 +10,7 @@ const port = 3000;
 var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
-
+var contactRouter = require('./routes/contact');
 
 app.listen(port, function () {
     console.log("port: " + port);
@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({
 app.use(logger('dev'));
 
 app.use('/', indexRouter);
-
 app.use('/admin', adminRouter);
+app.use('/contact', contactRouter);
 
 app.engine('ejs', require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));

@@ -5,6 +5,7 @@ require('firebase/auth');
 require('firebase/database');
 
 var express = require('express');
+var bodyParser = require('body-parser');
 
 var router = express.Router();
 const config = {
@@ -46,6 +47,14 @@ router.get('/', function (req, res, next) {
             });
         })
     // res.render('admin');
+});
+
+
+
+
+router.post('/', function (req, res, next) {
+    var idToDelete = req.body.idToDelete;
+    console.log(idToDelete);
 });
 
 
