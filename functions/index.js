@@ -1,17 +1,10 @@
 const functions = require('firebase-functions');
-
-const express = require('express');
-var logger = require('morgan');
-var path = require('path');
 var firebase = require("firebase/app");
-
-const app = express();
-const port = 3000;
-
-var bodyParser = require('body-parser');
-var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin');
-var contactRouter = require('./routes/contact');
+//const http = require('http');
+const app = require('express')()
+var http = require('http').createServer(app);
+var io = require('socket.io')(http)
+//require('./socket')(io);
 
 const config = {
     apiKey: "AIzaSyDZUUGP2FM_svmEB2CQZjN7NjSEO4MQyrU",
@@ -24,9 +17,28 @@ const config = {
     measurementId: "G-4HQWP3RP7X"
 };
 
-app.listen(port, function () {
-    console.log("port: " + port);
-})
+
+
+const firebaseApp = firebase.initializeApp(config);
+
+
+http.listen(3000, () => {
+    console.log('listening on *:3000');
+});
+
+var logger = require('morgan');
+var path = require('path');
+var firebase = require("firebase/app");
+
+//var app = module.exports = express();
+const port = 3000;
+
+var bodyParser = require('body-parser');
+var indexRouter = require('./routes/index');
+var adminRouter = require('./routes/admin');
+var contactRouter = require('./routes/contact')(io);
+
+
 
 
 app.use(bodyParser.json());
@@ -46,9 +58,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
+
+
+
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.app = functions.https.onRequest(app);
+
 
 // });

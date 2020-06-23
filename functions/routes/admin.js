@@ -7,6 +7,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var router = express.Router();
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> b1d210e9b166715dfa813115da5188cbddc525f9
 
 function getRequest() {
     var myDb = firebase.database();
@@ -18,7 +25,7 @@ function getRequest() {
 router.get('/', function (req, res, next) {
 
     functions.config().firebase
-    console.log("issou");
+    //console.log("issou");
     //console.log(getRequest());
     getRequest().then(
         request => {
