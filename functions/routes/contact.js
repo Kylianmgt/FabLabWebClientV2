@@ -55,18 +55,21 @@ module.exports = function (io) {
         if (req.body.msg) {
             sendMessage(req.body.msg, uId);
         }
-        res.render('contact');
+        res.render('contact', {
+            uId
+        });
         io.on('connection', (socket) => {
-            //console.log("je ete bz");
+            console.log("je ete bz");
+            ref.on("child_added", function (snapshot, prevChildKey) {
+                //res.redirect("/");
+                msgs.push(snapshot.val());
+                displayMessage(snapshot);
+                //console.log(msgs);
+                //displayMessage(msgs);
+                //displayMessage(res, snapshot);
+            });
         });
-        ref.on("child_added", function (snapshot, prevChildKey) {
-            //res.redirect("/");
-            msgs.push(snapshot.val());
-            displayMessage(snapshot);
-            //console.log(msgs);
-            //displayMessage(msgs);
-            //displayMessage(res, snapshot);
-        });
+
         // displayMessage(uId).then(message => {
         //     res.render('contact', {
         //         message,

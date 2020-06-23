@@ -10,6 +10,12 @@
 <body>
 
     <header>
+        <style type="text/css">
+            #msg {
+
+                overflow: auto
+            }
+        </style>
         <script defer src="/__/firebase/7.15.2/firebase-app.js"></script>
         <!-- include only the Firebase features as you need -->
         <script defer src="/__/firebase/7.15.2/firebase-auth.js"></script>
@@ -37,17 +43,21 @@
             $(function () {
                 var socket = io();
                 socket.on('new-msg', function (snapshot) {
-                    alert("ofeu");
-                    $('.container').append("<p>je te bz</p>")
-                    $('.msg').append(`
+
+
+
+                    $('#msg').append(`
                 <div class="jumbotron">
             <h1>${ snapshot.userName}</h1>
             <p>${ snapshot.messageTime}</p>
             <p>${snapshot.messageText}</p>
         </div>`)
+                    document.getElementById('bottom').scrollIntoView();
                 });
+
             });
         </script>
+
     </header>
     <section class="container">
         <h1>Contact page</h1>
@@ -55,11 +65,17 @@
 
     </section>
 
-    <div class="msg">
+    <div id="msg">
 
     </div>
+    <form method="post" action="/contact" class="inline">
+        <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" name="msg">
+        <button type="submit" name="userId" value="<%=uId%>" class="link-button">
+            Envoyer
+        </button>
+    </form>
     <footer>
-
+        <div id="bottom"></div>
     </footer>
 </body>
 
