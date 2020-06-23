@@ -29,32 +29,34 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
         </script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+
+        </script>
+        <script>
+            $(function () {
+                var socket = io();
+                socket.on('new-msg', function (snapshot) {
+                    alert("ofeu");
+                    $('.container').append("<p>je te bz</p>")
+                    $('.msg').append(`
+                <div class="jumbotron">
+            <h1>${ snapshot.userName}</h1>
+            <p>${ snapshot.messageTime}</p>
+            <p>${snapshot.messageText}</p>
+        </div>`)
+                });
+            });
+        </script>
     </header>
     <section class="container">
         <h1>Contact page</h1>
-        <% for (var r in message) {%>
-        <div class="jumbotron">
-            <h1><%= message[r].userName %></h1>
-            <p><%= message[r].messageTime %></p>
-            <p><%= message[r].messageText %></p>
 
 
-
-
-
-        </div>
-        <% };
-
-            %>
-        <p></p>
     </section>
-    <div>
-        <form method="post" action="/contact" class="inline">
-            <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" name="msg">
-            <button type="submit" name="userId" value="<%=uId%>" class="link-button">
-                Envoyer
-            </button>
-        </form>
+
+    <div class="msg">
+
     </div>
     <footer>
 
