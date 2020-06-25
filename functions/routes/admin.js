@@ -9,10 +9,6 @@ var bodyParser = require('body-parser');
 
 var router = express.Router();
 
-
-
-
-
 function getRequest() {
     var myDb = firebase.database();
     const dbref = myDb.ref('Request');
