@@ -1,9 +1,9 @@
 const functions = require('firebase-functions');
 var firebase = require("firebase/app");
 //const http = require('http');
-const app = require('express')()
+const app = require('express')();
 var http = require('http').createServer(app);
-var io = require('socket.io')(http)
+var io = require('socket.io')(http);
 //require('./socket')(io);
 
 const config = {
