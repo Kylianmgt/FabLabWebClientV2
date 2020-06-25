@@ -9,9 +9,13 @@ var bodyParser = require('body-parser');
 
 var router = express.Router();
 
+var myDb = firebase.database();
+const dbref = myDb.ref('Request');
+
+
+
 function getRequest() {
-    var myDb = firebase.database();
-    const dbref = myDb.ref('Request');
+
     return dbref.once('value').then(snap => snap.val());
 }
 
@@ -35,7 +39,9 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     var idToDelete = req.body.idToDelete;
-    console.log(idToDelete);
+    dbref.orderByChild('userId').equalTo(idToDelete).set({
+        status: "traité"
+    });
 });
 
 
