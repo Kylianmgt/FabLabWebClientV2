@@ -8,53 +8,45 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var router = express.Router();
-const config = {
-    apiKey: "AIzaSyDZUUGP2FM_svmEB2CQZjN7NjSEO4MQyrU",
-    authDomain: "fablab-19.firebaseapp.com",
-    databaseURL: "https://fablab-19.firebaseio.com",
-    projectId: "fablab-19",
-    storageBucket: "fablab-19.appspot.com",
-    messagingSenderId: "892898999133",
-    appId: "1:892898999133:web:8f7cff985ec34eed1506b4",
-    measurementId: "G-4HQWP3RP7X"
-};
 
-
-
-const firebaseApp = firebase.initializeApp(config);
-
-
-
+var myDb = firebase.database();
+const dbref = myDb.ref('Request');
 
 
 
 function getRequest() {
-    var myDb = firebase.database();
-    const dbref = myDb.ref('Request');
+
     return dbref.once('value').then(snap => snap.val());
 }
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
     functions.config().firebase
-    console.log("issou");
-    //console.log(getRequest());
+    //show the request  
     getRequest().then(
         request => {
             res.render('admin', {
                 request
             });
         })
-    // res.render('admin');
+
 });
 
 
 
 
 router.post('/', function (req, res, next) {
+    // when you click on button succes it mark the request "traité"
     var idToDelete = req.body.idToDelete;
-    console.log(idToDelete);
+    var updates = {};
+    updates['/status/'] = "traité";
+    dbref.child(idToDelete).update(updates);
+    getRequest().then(
+        request => {
+            res.render('admin', {
+                request
+            });
+        })
 });
 
 
