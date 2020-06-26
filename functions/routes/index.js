@@ -19,12 +19,10 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+
+    //check if the password that is typed is correct
     test = req.body.mot_de_passe;
-    // console.log(test);
-
     var passwordRef = myDb.ref('Password');
-
-
     passwordRef.on("value", function (snapshot) {
         console.log(snapshot.val());
         password = snapshot.val();
@@ -33,12 +31,13 @@ router.post('/', function (req, res, next) {
     });
 
     if (req.body.mot_de_passe == password) {
+        //if yes redirect
         res.redirect('/admin');
-        //console.log("yes");
-    }
-    else {
+
+    } else {
+        //if no stay on page
         res.redirect('/');
-        // console.log("no");
+
     }
 
 });

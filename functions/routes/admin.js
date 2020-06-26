@@ -21,27 +21,25 @@ function getRequest() {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
     functions.config().firebase
-    //console.log("issou");
-    //console.log(getRequest());
+    //show the request  
     getRequest().then(
         request => {
             res.render('admin', {
                 request
             });
         })
-    // res.render('admin');
+
 });
 
 
 
 
 router.post('/', function (req, res, next) {
+    // when you click on button succes it mark the request "traité"
     var idToDelete = req.body.idToDelete;
     var updates = {};
     updates['/status/'] = "traité";
-
     dbref.child(idToDelete).update(updates);
     getRequest().then(
         request => {
