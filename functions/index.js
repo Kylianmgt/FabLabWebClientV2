@@ -4,8 +4,13 @@ var firebase = require("firebase/app");
 const app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var logger = require('morgan');
+var path = require('path');
 //require('./socket')(io);
 
+
+
+//firebase config
 const config = {
     apiKey: "AIzaSyDZUUGP2FM_svmEB2CQZjN7NjSEO4MQyrU",
     authDomain: "fablab-19.firebaseapp.com",
@@ -21,23 +26,24 @@ const config = {
 
 const firebaseApp = firebase.initializeApp(config);
 
-
+//server port
 http.listen(3000, () => {
     console.log('listening on *:3000');
 });
 
-var logger = require('morgan');
-var path = require('path');
+
 
 //var app = module.exports = express();
 const port = 3000;
 
+
+//roots
 var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var contactRouter = require('./routes/contact')(io);
 
-
+//express initialisation
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
