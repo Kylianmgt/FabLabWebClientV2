@@ -22,13 +22,13 @@
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-        </script>
+            </script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
+            </script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-        </script>
+            </script>
     </header>
     <section class="container">
 
@@ -36,28 +36,44 @@
         <h1>Admin page</h1>
         <ul>
             <% for (var r in request) {%>
-            <div class="jumbotron">
-                <h1><%= request[r].companyName %></h1>
-                <p><%= request[r].name %></p>
-                <p><%= request[r].companyCity %></p>
-                <p><%= request[r].companyPostalCode %></p>
-                <p><%= request[r].email %></p>
-                <p><%= request[r].phoneNumber %></p>
-                <p><%= request[r].requestRequme %></p>
-                <p><%= request[r].status %></p>
+
+            <div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h1><%= request[r].companyName %></h1>
+                    </li>
+                    <li class="list-group-item"><%= request[r].name %></p>
+                    </li>
+                    <li class="list-group-item"><%= request[r].companyCity %></p>
+                    </li>
+                    <li class="list-group-item"><%= request[r].companyPostalCode %></p>
+                    </li>
+                    <li class="list-group-item"><%= request[r].email %></p>
+                    </li>
+                    <li class="list-group-item"><%= request[r].phoneNumber %></p>
+                    </li>
+                    <li class="list-group-item"><%= request[r].requestRequme %></p>
+                    </li>
+                    <li class="list-group-item"><%= request[r].status %></p>
+                    </li>
+                </ul>
+
                 <form method="post" action="/contact" class="inline">
-                    <button type="submit" name="userId" value="<%= request[r].userId %>" class="link-button">
+                    <button class="btn btn-outline-secondary" type="submit" name="userId"
+                        value="<%= request[r].userId %>" class="link-button">
                         contact
                     </button>
                 </form>
 
                 <form method="post" action="/admin" class="inline">
-                    <button type="submit" name="idToDelete" value="<%= request[r].userId %>" class="link-button">
+                    <button class="btn btn-outline-secondary" type="submit" name="idToDelete"
+                        value="<%=r%>" class="link-button">
+
                         success comand
                     </button>
                 </form>
-
             </div>
+
             <% };
 
             %>
