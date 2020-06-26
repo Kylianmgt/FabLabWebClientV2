@@ -45,6 +45,7 @@
                 <p><%= request[r].phoneNumber %></p>
                 <p><%= request[r].requestRequme %></p>
                 <p><%= request[r].status %></p>
+                <p><%=r%></p>
                 <form method="post" action="/contact" class="inline">
                     <button type="submit" name="userId" value="<%= request[r].userId %>" class="link-button">
                         contact
@@ -52,7 +53,7 @@
                 </form>
 
                 <form method="post" action="/admin" class="inline">
-                    <button type="submit" name="idToDelete" value="<%= request[r].userId %>" class="link-button">
+                    <button type="submit" name="idToDelete" value="<%=r%>" class="link-button">
                         success comand
                     </button>
                 </form>

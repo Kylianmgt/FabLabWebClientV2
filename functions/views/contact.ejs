@@ -39,18 +39,16 @@
 
         </script>
         <script>
-            $(function () {
-                var socket = io();
-                socket.on('new-msg', function (snapshot) {
-                    $('#msg').append(`
+            var socket = io();
+            socket.on('new-msg', function (msgs) {
+                var date = new Date(msgs.slice(-1)[0].messageTime);
+                $('#msg').append(`
                 <div class="jumbotron">
-            <h1>${ snapshot.userName}</h1>
-            <p>${ snapshot.messageTime}</p>
-            <p>${snapshot.messageText}</p>
+            <h1>${msgs.slice(-1)[0].userName}</h1>
+            <p>${date.toDateString() }</p>
+            <p>${msgs.slice(-1)[0].messageText}</p>
         </div>`)
-                    document.getElementById('bottom').scrollIntoView();
-                });
-
+                document.getElementById('bottom').scrollIntoView();
             });
         </script>
 
