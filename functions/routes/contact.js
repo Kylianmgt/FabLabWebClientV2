@@ -14,14 +14,18 @@ module.exports = function (io) {
     var eleaEmail = "lol@lol.fr";
     var router = express.Router();
     var uId;
-
     var myDb = firebase.database();
 
 
 
-    function displayMessage(snapshot) {
-        console.log("je vais la");
-        io.emit('new-msg', snapshot);
+    function displayMessage(snapshot, res, uId, msgs) {
+        console.log("nouevhdzuiedhziruf");
+        // console.log(snapshot.val());
+        io.emit('new-msg', msgs);
+        // res.render('contact', {
+        //     uId
+        // });
+
     }
 
     function sendMessage(msgText, uId) {
@@ -50,24 +54,28 @@ module.exports = function (io) {
         uId = req.body.userId;
         var msgs = [];
         var ref = myDb.ref('Contact').child(uId);
-
+        res.render('contact', {
+            uId
+        });
 
         if (req.body.msg) {
             sendMessage(req.body.msg, uId);
         }
-        res.render('contact', {
-            uId
-        });
+
         io.on('connection', (socket) => {
-            console.log("je ete bz");
+
             ref.on("child_added", function (snapshot, prevChildKey) {
                 //res.redirect("/");
+                //console.log(snapshot.val());
                 msgs.push(snapshot.val());
-                displayMessage(snapshot);
+                console.log(msgs);
+                displayMessage(snapshot, res, uId, msgs);
                 //console.log(msgs);
                 //displayMessage(msgs);
                 //displayMessage(res, snapshot);
             });
+
+
         });
 
         // displayMessage(uId).then(message => {

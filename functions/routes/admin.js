@@ -39,9 +39,16 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     var idToDelete = req.body.idToDelete;
-    dbref.orderByChild('userId').equalTo(idToDelete).set({
-        status: "traité"
-    });
+    var updates = {};
+    updates['/status/'] = "traité";
+
+    dbref.child(idToDelete).update(updates);
+    getRequest().then(
+        request => {
+            res.render('admin', {
+                request
+            });
+        })
 });
 
 

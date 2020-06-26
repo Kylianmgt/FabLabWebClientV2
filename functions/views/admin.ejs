@@ -36,6 +36,7 @@
         <h1>Admin page</h1>
         <ul>
             <% for (var r in request) {%>
+
             <div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
@@ -66,7 +67,8 @@
 
                 <form method="post" action="/admin" class="inline">
                     <button class="btn btn-outline-secondary" type="submit" name="idToDelete"
-                        value="<%= request[r].userId %>" class="link-button">
+                        value="<%=r%>" class="link-button">
+
                         success comand
                     </button>
                 </form>
