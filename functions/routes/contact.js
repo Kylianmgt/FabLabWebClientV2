@@ -19,17 +19,14 @@ module.exports = function (io) {
 
 
     function displayMessage(snapshot, res, uId, msgs) {
+        //message displayer triggeres each time a msg is added in the Database
         console.log("nouevhdzuiedhziruf");
-        // console.log(snapshot.val());
         io.emit('new-msg', msgs);
-        // res.render('contact', {
-        //     uId
-        // });
 
     }
 
     function sendMessage(msgText, uId) {
-        // var dbref2 = myDb.ref('Contact').child(uId);
+        //Send msg from Elea,     
         var msg = {
             messageText: msgText,
             messageTime: Date.now(),
@@ -50,6 +47,7 @@ module.exports = function (io) {
 
     });
     router.post('/', function (req, res, next) {
+        //if a message is typed , send the message to the db and then display it
 
         uId = req.body.userId;
         var msgs = [];
